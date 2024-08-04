@@ -1,5 +1,5 @@
 // import React, { useCallback, useState } from 'react';
-// import { View, ScrollView, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, TextInput, Text, TouchableOpacity } from 'react-native';
+// import { View, ScrollView, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, TextInput, Text, TouchableOpacity, Picker } from 'react-native';
 // import { Button } from 'react-native-paper';
 // import { useNavigation } from '@react-navigation/native';
 // import FlipCard from './FlipCard';
@@ -12,6 +12,7 @@
 // }> = ({ flashcards, folders, addFolder, moveFlashcardToFolder }) => {
 //   const navigation = useNavigation();
 //   const [newFolderName, setNewFolderName] = useState('');
+//   const [selectedFolder, setSelectedFolder] = useState(folders.length > 0 ? folders[0].id : '');
 
 //   const navigateToCreateFlashcard = useCallback(() => {
 //     navigation.navigate('CreateFlashcard');
@@ -24,27 +25,19 @@
 //     }
 //   };
 
+//   const openFolder = (folder) => {
+//     navigation.navigate('FolderContents', { folder });
+//   };
+
 //   return (
 //     <SafeAreaView style={styles.safeArea}>
 //       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
 //         <ScrollView contentContainerStyle={styles.scrollViewContent} showsVerticalScrollIndicator={true}>
 //           <View style={styles.folderContainer}>
 //             {folders.map(folder => (
-//               <View key={folder.id} style={styles.folder}>
+//               <TouchableOpacity key={folder.id} style={styles.folder} onPress={() => openFolder(folder)}>
 //                 <Text style={styles.folderTitle}>{folder.name}</Text>
-//                 {folder.flashcards.map(flashcard => (
-//                   <View key={flashcard.id} style={styles.cardWrapper}>
-//                     <FlipCard
-//                       title={flashcard.frontTitle}
-//                       value={flashcard.frontValue}
-//                       backTitle={flashcard.backTitle}
-//                       backValue={flashcard.backValue}
-//                       editable={false}
-//                       flippable={true}
-//                     />
-//                   </View>
-//                 ))}
-//               </View>
+//               </TouchableOpacity>
 //             ))}
 //           </View>
 
@@ -60,9 +53,20 @@
 //                   flippable={true}
 //                 />
 //                 {folders.length > 0 && (
-//                   <TouchableOpacity onPress={() => moveFlashcardToFolder(flashcard.id, folders[0].id)} style={styles.moveButton}>
-//                     <Text>Move to {folders[0].name}</Text>
-//                   </TouchableOpacity>
+//                   <View style={styles.moveContainer}>
+//                     <Picker
+//                       selectedValue={selectedFolder}
+//                       style={styles.picker}
+//                       onValueChange={(itemValue) => setSelectedFolder(itemValue)}
+//                     >
+//                       {folders.map(folder => (
+//                         <Picker.Item key={folder.id} label={folder.name} value={folder.id} />
+//                       ))}
+//                     </Picker>
+//                     <TouchableOpacity onPress={() => moveFlashcardToFolder(flashcard.id, selectedFolder)} style={styles.moveButton}>
+//                       <Text>Move to {folders.find(folder => folder.id === selectedFolder)?.name}</Text>
+//                     </TouchableOpacity>
+//                   </View>
 //                 )}
 //               </View>
 //             ))}
@@ -137,11 +141,20 @@
 //   addButton: {
 //     marginRight: 10,
 //   },
+//   moveContainer: {
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//     marginTop: 10,
+//   },
+//   picker: {
+//     height: 50,
+//     flex: 1,
+//   },
 //   moveButton: {
 //     padding: 5,
 //     backgroundColor: '#007BFF',
 //     borderRadius: 5,
-//     marginTop: 5,
+//     marginLeft: 10,
 //   },
 //   buttonContainer: {
 //     flexDirection: 'row',
@@ -164,7 +177,6 @@ import React, { useCallback, useState } from 'react';
 import { View, ScrollView, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, TextInput, Text, TouchableOpacity, Picker } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FlipCard from './FlipCard';
 
 const FlashcardsList: React.FC<{
@@ -199,7 +211,6 @@ const FlashcardsList: React.FC<{
           <View style={styles.folderContainer}>
             {folders.map(folder => (
               <TouchableOpacity key={folder.id} style={styles.folder} onPress={() => openFolder(folder)}>
-                <Icon name="folder" size={50} color="#FFD700" />
                 <Text style={styles.folderTitle}>{folder.name}</Text>
               </TouchableOpacity>
             ))}
@@ -279,23 +290,15 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   folder: {
+    padding: 10,
     marginVertical: 10,
-    alignItems: 'center',
-    backgroundColor: '#f0f0f0',
-    borderRadius: 10,
-    padding: 20,
-    width: 300,
-    justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 1,
+    backgroundColor: '#e0e0e0',
+    borderRadius: 5,
   },
   folderTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginTop: 10,
+    marginBottom: 5,
   },
   addFolderContainer: {
     flexDirection: 'row',
@@ -343,5 +346,3 @@ const styles = StyleSheet.create({
 });
 
 export default FlashcardsList;
-
-
