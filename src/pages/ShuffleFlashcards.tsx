@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import FlipCard from './FlipCard';
+import { Picker } from '@react-native-picker/picker';
 
 const ShuffleFlashcards = () => {
   const route = useRoute();

@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { View, StyleSheet, KeyboardAvoidingView, Animated, TextInput } from "react-native";
 import { Button } from "react-native-paper";
 import FlipCard from "./FlipCard";
+import { Picker } from '@react-native-picker/picker';
 
 
 const Word: React.FC = () => {

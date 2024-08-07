@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { Text, TextInput, StyleSheet, TouchableWithoutFeedback, Animated, View } from "react-native";
 import { Card } from "react-native-paper";
+import { Picker } from '@react-native-picker/picker';
 
 
 type Props = {

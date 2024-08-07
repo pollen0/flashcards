@@ -3,6 +3,7 @@ import { View, StyleSheet, FlatList } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import FlipCard from './FlipCard';
+import { Picker } from '@react-native-picker/picker';
 
 
 const CreateFlashcard: React.FC<{ addFlashcard: (frontTitle: string, frontValue: string, backTitle: string, backValue: string) => void }> = ({ addFlashcard }) => {

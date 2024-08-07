@@ -52,6 +52,7 @@ import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import FlipCard from './FlipCard';
+import { Picker } from '@react-native-picker/picker';
 
 const FolderContents = () => {
   const route = useRoute();

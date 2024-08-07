@@ -174,10 +174,12 @@
 
 
 import React, { useCallback, useState } from 'react';
-import { View, ScrollView, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, TextInput, Text, TouchableOpacity, Picker } from 'react-native';
+import { View, ScrollView, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, TextInput, Text, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import FlipCard from './FlipCard';
+import { Picker } from '@react-native-picker/picker';
+
 
 const FlashcardsList: React.FC<{
   flashcards: { id: string; frontTitle: string; frontValue: string; backTitle: string; backValue: string; }[],
@@ -256,7 +258,7 @@ const FlashcardsList: React.FC<{
             style={styles.input}
           />
           <Button mode="contained" onPress={handleAddFolder} style={styles.addButton}>
-            Add Folder
+            Add Studyset
           </Button>
           <Button mode="contained" onPress={navigateToCreateFlashcard} style={styles.button}>
             Create Flashcard
