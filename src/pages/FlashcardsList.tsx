@@ -1,8 +1,9 @@
 // import React, { useCallback, useState } from 'react';
-// import { View, ScrollView, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, TextInput, Text, TouchableOpacity, Picker } from 'react-native';
+// import { View, ScrollView, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, TextInput, Text, TouchableOpacity } from 'react-native';
 // import { Button } from 'react-native-paper';
 // import { useNavigation } from '@react-navigation/native';
 // import FlipCard from './FlipCard';
+// import { Picker } from '@react-native-picker/picker';
 
 // const FlashcardsList: React.FC<{
 //   flashcards: { id: string; frontTitle: string; frontValue: string; backTitle: string; backValue: string; }[],
@@ -64,7 +65,7 @@
 //                       ))}
 //                     </Picker>
 //                     <TouchableOpacity onPress={() => moveFlashcardToFolder(flashcard.id, selectedFolder)} style={styles.moveButton}>
-//                       <Text>Move to {folders.find(folder => folder.id === selectedFolder)?.name}</Text>
+//                       <Text style={styles.moveButtonText}>Move to {folders.find(folder => folder.id === selectedFolder)?.name}</Text>
 //                     </TouchableOpacity>
 //                   </View>
 //                 )}
@@ -81,7 +82,7 @@
 //             style={styles.input}
 //           />
 //           <Button mode="contained" onPress={handleAddFolder} style={styles.addButton}>
-//             Add Folder
+//             Add Studyset
 //           </Button>
 //           <Button mode="contained" onPress={navigateToCreateFlashcard} style={styles.button}>
 //             Create Flashcard
@@ -156,6 +157,10 @@
 //     borderRadius: 5,
 //     marginLeft: 10,
 //   },
+//   moveButtonText: {
+//     color: '#FFFFFF', // Ensure text color is white
+//     fontSize: 16,
+//   },
 //   buttonContainer: {
 //     flexDirection: 'row',
 //     alignItems: 'center',
@@ -172,7 +177,6 @@
 
 // export default FlashcardsList;
 
-
 import React, { useCallback, useState } from 'react';
 import { View, ScrollView, StyleSheet, SafeAreaView, KeyboardAvoidingView, Platform, TextInput, Text, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-paper';
@@ -180,10 +184,9 @@ import { useNavigation } from '@react-navigation/native';
 import FlipCard from './FlipCard';
 import { Picker } from '@react-native-picker/picker';
 
-
 const FlashcardsList: React.FC<{
-  flashcards: { id: string; frontTitle: string; frontValue: string; backTitle: string; backValue: string; }[],
-  folders: { id: string; name: string; flashcards: { id: string; frontTitle: string; frontValue: string; backTitle: string; backValue: string; }[] }[],
+  flashcards: { id: string; frontTitle: string; frontValue: string; backTitle: string; backValue: string; reviewDate: Date; }[],
+  folders: { id: string; name: string; flashcards: { id: string; frontTitle: string; frontValue: string; backTitle: string; backValue: string; reviewDate: Date; }[] }[],
   addFolder: (folderName: string) => void,
   moveFlashcardToFolder: (flashcardId: string, folderId: string) => void,
 }> = ({ flashcards, folders, addFolder, moveFlashcardToFolder }) => {
@@ -241,7 +244,7 @@ const FlashcardsList: React.FC<{
                       ))}
                     </Picker>
                     <TouchableOpacity onPress={() => moveFlashcardToFolder(flashcard.id, selectedFolder)} style={styles.moveButton}>
-                      <Text>Move to {folders.find(folder => folder.id === selectedFolder)?.name}</Text>
+                      <Text style={styles.moveButtonText}>Move to {folders.find(folder => folder.id === selectedFolder)?.name}</Text>
                     </TouchableOpacity>
                   </View>
                 )}
@@ -333,6 +336,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginLeft: 10,
   },
+  moveButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+  },
   buttonContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -348,3 +355,4 @@ const styles = StyleSheet.create({
 });
 
 export default FlashcardsList;
+
